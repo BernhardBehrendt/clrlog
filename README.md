@@ -6,7 +6,11 @@
 #How to use#
 Require the Clrlog class
 
-    var Clrlog = require(__dirname + '/../Clrlog.js');
+    var Clrlog = require(__dirname + '/../index.js');
+
+To give log messages color set global.DEBUG=true or run application in node.js's debug mode
+
+    global.DEBUG = true;
 
 Clrlog can be used as a function
 
@@ -50,7 +54,7 @@ The logs are stored in the following format
         global.DEBUG = true;
 
         // Fetch Clrlog
-        var Clrlog = require(__dirname + '/../Clrlog.js');
+        var Clrlog = require(__dirname + '/../index.js');
 
         ////////////////////////////////////////////////////////
         /////Call Clrlog like a plain old javascript funtion/////
