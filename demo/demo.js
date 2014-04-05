@@ -6,7 +6,7 @@
     global.DEBUG = true;
 
     // Fetch Clrlog
-    var Clrlog = require(__dirname + '/../Clrlog.js');
+    var Clrlog = require(__dirname + '/../index.js');
 
     ////////////////////////////////////////////////////////
     /////Call Clrlog like a plain old javascript funtion/////
