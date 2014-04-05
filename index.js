@@ -22,6 +22,7 @@ var Clrlog = null;
      * @param {String} sType default 'message' (message, success, warning, error available)
      * @param {Boolean} sLogFile write messages into a log file (default none)
      * @param {Boolean} bTraceErrors Determine if errormessages should output as a trace shutdown application (default false)
+     * @return {Object} A Clrlog object (if called as a function
      */
     Clrlog = function (mLogdata, sType, sLogFile, bTraceErrors) {
 
@@ -96,7 +97,7 @@ var Clrlog = null;
             }
         } else {
             // If it was a function call run as a class instance
-            new Clrlog(mLogdata, sType, sLogFile, bTraceErrors);
+            return new Clrlog(mLogdata, sType, sLogFile, bTraceErrors);
         }
     };
 

@@ -9,10 +9,10 @@
     var Clrlog = require(__dirname + '/../index.js');
 
     ////////////////////////////////////////////////////////
-    /////Call Clrlog like a plain old javascript funtion/////
+    /////Call Clrlog like a plain old javascript funtion////
     ////////////////////////////////////////////////////////
 
-    Clrlog("Hello I'm Clrlog");
+    Clrlog("Hello I'm clrlog");
     Clrlog("I was successful", 'success');
     Clrlog("I've need to warn you ", 'warning');
     Clrlog("I've made a mistake", 'error');
@@ -25,7 +25,7 @@
 
 
     // Save log messages in a file
-    Clrlog("And I can store my logs into a file", 'message', __dirname + '/example.log');
+   var  oFirsInstance = Clrlog("And I can store my logs into a file", 'message', __dirname + '/example.log');
 
     console.log("");
     console.log("");
@@ -37,7 +37,7 @@
     console.log("");
 
     ////////////////////////////////////////////////////////
-    /////Call Clrlog as an object for more comples stuff/////
+    /////Call Clrlog as an object for more comples stuff////
     ////////////////////////////////////////////////////////
 
     var myClrlog = new Clrlog("And hold log instances for more complex logging purposes", 'success', __dirname + '/application.log');
