@@ -1,0 +1,54 @@
+# Vendored files and directories are excluded from language
+# statistics.
+#
+# Lines in this file are Regexps that are matched against the file
+# pathname.
+#
+# Please add additional test coverage to
+# `test/test_blob.rb#test_vendored` if you make any changes.
+
+## Vendor Conventions ##
+
+# Caches
+- cache/
+
+# Dependencies
+- ^[Dd]ependencies/
+
+# C deps
+#  https://github.com/joyent/node
+- ^deps/
+- ^tools/
+- (^|/)configure$
+- (^|/)configure.ac$
+- (^|/)config.guess$
+- (^|/)config.sub$
+
+# Node dependencies
+- fs
+
+# SyntaxHighlighter - http://alexgorbatchev.com/
+- (^|/)shBrush([^.]*)\.js$
+- (^|/)shCore\.js$
+- (^|/)shLegacy\.js$
+
+# Samples folders
+- ^[demo]/
+
+# LICENSE, README, git config files
+- ^COPYING$
+- LICENSE$
+- gitattributes$
+- gitignore$
+- gitmodules$
+- ^README$
+- ^readme$
+
+# Test fixtures
+- ^[Tt]est/fixtures/
+
+# Vagrant
+- ^Vagrantfile$
+
+# .DS_Store's
+- .[Dd][Ss]_[Ss]tore$
