@@ -1,6 +1,7 @@
 #Clrlog#
 ##Lightweight colorful JavaScript application logger with stack trace and logfile support for node.js##
 
+[![Build Status](https://travis-ci.org/BernhardBezdek/clrlog.svg?branch=master)](https://travis-ci.org/BernhardBezdek/clrlog)
 [![Dependency Status](https://gemnasium.com/BernhardBezdek/clrlog.svg)](https://gemnasium.com/BernhardBezdek/clrlog)
 
 ![Image](https://raw.githubusercontent.com/BernhardBezdek/Clrlog/master/previews/example_output.png "Example output")
