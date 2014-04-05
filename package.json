@@ -1,0 +1,32 @@
+{
+    "name": "clrlog",
+    "description": "Lightweight colorful JavaScript application logger with stack trace and logfile support for node.js",
+    "version": "1.0.0",
+    "author": {
+        "name": "Bernhard Bezdek",
+        "email": "bernhard.bezdek@googlemail.com"
+    },
+    "license": "MIT",
+    "keywords": [
+        "log",
+        "logging",
+        "logfile",
+        "console",
+        "console.log",
+        "colorful"
+
+    ],
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/BernhardBezdek/clrlog.git"
+    },
+
+    "engines": {
+        "node": ">= 0.6.0"
+    },
+    "readmeFilename": "https://github.com/BernhardBezdek/clrlog/blob/master/README.md",
+    "bugs": {
+        "url": "https://github.com/BernhardBezdek/clrlog/issues"
+    },
+    "homepage": "https://github.com/BernhardBezdek/clrlog/"
+}
