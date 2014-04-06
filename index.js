@@ -11,7 +11,7 @@ var Clrlog = null;
      * Debug mode can be also enabled by set global.DEBUG===true
      * There's also logfile support to save logmessages including logging time
      *
-     * Clrlog works called as a plain old javascript function or as an object for more comples purposes
+     * Clrlog works called as a plain old javascript function and as an object for more comples purposes
      *
      * @author Bernhard Bezdek <bernhard.bezdek@googlemail.com>
      * @see https://github.com/BernhardBezdek/Clrlog/blob/master/README.md>
@@ -26,13 +26,15 @@ var Clrlog = null;
      */
     Clrlog = function (mLogdata, sType, sLogFile, bTraceErrors) {
 
-        if (global.DEBUG === undefined) {
-            global.DEBUG = false;
-        }
 
         // Check if Clrlog was called as a function
         if (this !== undefined) {
+            var fs = require('fs');
 
+
+            if (global.DEBUG === undefined) {
+                global.DEBUG = (fs.existsSync(fs.realpathSync(process.mainModule.filename + '/../') + '/debug')) ? true : false;
+            }
 
             // The end string for colored messages
             var logMethod = 'log';
@@ -60,8 +62,6 @@ var Clrlog = null;
             // Hanlde writing into a logfile
             if (this.logFile !== false && this.logLevel.split(',').indexOf(this.type) !== -1) {
 
-
-                var fs = require('fs');
                 var sWriteFile = new Date().toString() + ' | ' + sType.toUpperCase() + ' ᑀ ';
 
                 try {

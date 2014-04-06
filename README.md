@@ -15,6 +15,8 @@ To give log messages color set global.DEBUG=true or run application in node.js's
 
     global.DEBUG = true;
 
+Or create a file named ``debug`` in applications root folder
+
 Clrlog can be used as a function
 
     Clrlog("Hello I'm Clrlog");
@@ -52,9 +54,12 @@ The logs are stored in the following format
     (function () {
         "use strict";
 
-        // Enable global.DEBUG for colorful logging purposes in your shell
+        // Enable global.DEBUG for colorful logging purposes
         // OR colorize logging when node is started in debug mode
-        global.DEBUG = true;
+        // global.DEBUG = true;
+        //
+        // A file named debug was created in applications root folder
+        // so global.DEBUG is automatically set to true
 
         // Fetch Clrlog
         var Clrlog = require(__dirname + '/../index.js');

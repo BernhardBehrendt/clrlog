@@ -1,9 +1,12 @@
 (function () {
     "use strict";
 
-    // Enable global.DEBUG for colorful logging purposes in your shell
+    // Enable global.DEBUG for colorful logging purposes
     // OR colorize logging when node is started in debug mode
-    global.DEBUG = true;
+    // global.DEBUG = true;
+    //
+    // A file named debug was created in applications root folder
+    // so global.DEBUG is automatically set to true
 
     // Fetch Clrlog
     var Clrlog = require(__dirname + '/../index.js');
@@ -25,7 +28,7 @@
 
 
     // Save log messages in a file
-   var  oFirsInstance = Clrlog("And I can store my logs into a file", 'message', __dirname + '/example.log');
+    var oFirsInstance = Clrlog("And I can store my logs into a file", 'message', __dirname + '/example.log');
 
     console.log("");
     console.log("");
