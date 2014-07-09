@@ -8,38 +8,38 @@
 
 #How to use#
 Require the Clrlog class
-
+```js
     var Clrlog = require(__dirname + '/../index.js');
-
+```
 To give log messages color set global.DEBUG=true or run application in node.js's debug mode
-
+```js
     global.DEBUG = true;
-
+```
 Or create a file named ``debug`` in applications root folder
 
 Clrlog can be used as a function
-
+```js
     Clrlog("Hello I'm Clrlog");
-
+```
 Or as an object
-
+```js
     var myClrlog = new Clrlog("I also support logging into logfiles", 'success', __dirname + '/application.log');
         myClrlog.logLevel = 'error';
         myClrlog.warning('This line is not written into logfile');
         myClrlog.error('This line is written into logfile');
-
+```
 
 Set custom log levels for a single logmessage type
-
+```js
     myClrlog.logLevel = 'error';
-
+```
 Or set log levels for multiple log message types
-
+```js
     myClrlog.logLevel = 'error,warning,success';
-
+```
 
 The logs are stored in the following format
-
+```log
     Sat Apr 05 2014 20:32:42 GMT+0200 (CEST) | SUCCESS ᑀ And hold log instances for more complex logging purposes
     Sat Apr 05 2014 20:32:42 GMT+0200 (CEST) | SUCCESS ᑀ The current loglevel is message,success
     Sat Apr 05 2014 20:32:42 GMT+0200 (CEST) | MESSAGE ᑀ This message goes into the logfile
@@ -48,10 +48,10 @@ The logs are stored in the following format
     	"I": "can",
     	"log": "Objects too"
     }
-
+```
 
 #Full working example (demo/demo.js)#
-
+```js
     (function () {
         "use strict";
 
@@ -117,7 +117,7 @@ The logs are stored in the following format
         myClrlog.success('This line goes into the logfile too');
 
     })();
-
+```
 Author:
 Clrlog was written by Bernhard Bezdek
 
