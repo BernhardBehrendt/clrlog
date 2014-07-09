@@ -25,7 +25,8 @@ Or as an object
 
     var myClrlog = new Clrlog("I also support logging into logfiles", 'success', __dirname + '/application.log');
         myClrlog.logLevel = 'error';
-        myClrlog.error('This line is not written into logfile');
+        myClrlog.warning('This line is not written into logfile');
+        myClrlog.error('This line is written into logfile');
 
 
 Set custom log levels for a single logmessage type
