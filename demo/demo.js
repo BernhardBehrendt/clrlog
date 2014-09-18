@@ -9,6 +9,9 @@
     // so global.DEBUG is automatically set to true
 
     // Fetch Clrlog
+
+    global.DEBUG = true;
+
     var Clrlog = require(__dirname + '/../index.js');
 
     ////////////////////////////////////////////////////////
@@ -66,6 +69,8 @@
     myClrlog.message('This message goes into the logfile');
     myClrlog.error('This line is not written into logfile');
     myClrlog.success('This line goes into the logfile too');
+
+
 
     myClrlog.success({
         I: 'can',

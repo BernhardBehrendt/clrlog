@@ -7,9 +7,14 @@
 ![Image](https://raw.githubusercontent.com/BernhardBezdek/Clrlog/master/previews/example_output.png "Example output")
 
 #How to use#
+Instal Clrlog via npm
+```js
+    npm install clrlog
+```
+
 Require the Clrlog class
 ```js
-    var Clrlog = require(__dirname + '/../index.js');
+    var Clrlog = require('clrlog');
 ```
 To give log messages color set global.DEBUG=true or run application in node.js's debug mode
 ```js

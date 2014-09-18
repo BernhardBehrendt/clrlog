@@ -33,11 +33,12 @@ var Clrlog = null;
 
 
             if (global.DEBUG === undefined) {
-                global.DEBUG = (fs.existsSync(fs.realpathSync(process.mainModule.filename + '/../') + '/debug')) ? true : false;
+                global.DEBUG = false;
             }
 
             // The end string for colored messages
             var logMethod = 'log';
+            var logArchive = {};
 
             // Determine the output type
             if (this.types[sType] !== undefined) {
@@ -76,6 +77,32 @@ var Clrlog = null;
                     fs.appendFile(sLogFile, sWriteFile, function (error) {
                         if (error !== null) {
                             Clrlog(error);
+                        }
+
+                        if (logArchive[sLogFile] === undefined) {
+                            logArchive[sLogFile] = setTimeout(function () {
+                                fs.stat(sLogFile, function (error, stats) {
+                                    if (error === null) {
+                                        if (stats.size > 10000000) {
+
+                                            fs.rename(sLogFile, sLogFile.replace(/.(\w)*$/, function (match) {
+                                                return "." + Math.round(new Date().getTime() / 1000) + match;
+                                            }), function (error) {
+
+                                                if (error !== null) {
+                                                    console.log(error);
+                                                }
+
+                                                delete logArchive[sLogFile];
+                                            });
+                                        } else {
+                                            delete logArchive[sLogFile];
+                                        }
+                                    } else {
+                                        delete logArchive[sLogFile];
+                                    }
+                                });
+                            }, 10000);
                         }
                     });
                 } catch (e) {
