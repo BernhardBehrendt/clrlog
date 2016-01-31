@@ -46,7 +46,11 @@
     /////Call Clrlog as an object for more comples stuff////
     ////////////////////////////////////////////////////////
 
-    var myClrlog = new Clrlog("And hold log instances for more complex logging purposes", 'success', __dirname + '/application.log');
+
+    // When running node app using env var LOG_CONTEXT_ONLY any log is shown in terminal and not written in logfile
+    // This is  a useful feature to enable logging only for a specific context
+    var myClrlog = new Clrlog("And hold log instances for more complex logging purposes", 'success', __dirname + '/application.log', 'LOG_CONTEXT_ONLY');
+    var myClrlog = new Clrlog("And hold log instances for more complex logging purposes", 'success', undefined, 'LOG_CONTEXT_ONLY');
 
     // LogLevel can be set on custom purposes
     myClrlog.logLevel = 'error';         // Only errormessages
@@ -69,7 +73,6 @@
     myClrlog.message('This message goes into the logfile');
     myClrlog.error('This line is not written into logfile');
     myClrlog.success('This line goes into the logfile too');
-
 
 
     myClrlog.success({

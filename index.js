@@ -1,6 +1,7 @@
 /*global DEBUG*/
 /*global v8debug*/
 /*global console*/
+/*global process*/
 var Clrlog = null;
 (function () {
     "use strict";
@@ -22,9 +23,10 @@ var Clrlog = null;
      * @param {String} sType default 'message' (message, success, warning, error available)
      * @param {Boolean} sLogFile write messages into a log file (default none)
      * @param {Boolean} bTraceErrors Determine if errormessages should output as a trace shutdown application (default false)
+     * @param {String} sProcessEnv Determine a process variable which enables the specific logging (Useful when several parts should have separate logging)
      * @return {Object} A Clrlog object (if called as a function
      */
-    Clrlog = function (mLogdata, sType, sLogFile, bTraceErrors) {
+    Clrlog = function (mLogdata, sType, sLogFile, sProcessEnv, bTraceErrors) {
 
 
         // Check if Clrlog was called as a function
@@ -32,8 +34,8 @@ var Clrlog = null;
             var fs = require('fs');
 
 
-            if (global.DEBUG === undefined) {
-                global.DEBUG = false;
+            if (process.env.DEBUG === undefined) {
+                process.env.DEBUG = false;
             }
 
             // The end string for colored messages
@@ -46,9 +48,18 @@ var Clrlog = null;
             }
 
             // Enable Tracing for Errors
-            if (typeof bTraceErrors === 'boolean') {
+            if (typeof bTraceErrors === 'boolean' || typeof sProcessEnv === 'boolean') {
                 this.trace = bTraceErrors;
             }
+
+            if (this.explicityDebug === undefined) {
+                this.explicityDebug = false;
+            }
+
+            if (process !== undefined && typeof process.env === 'object' && typeof sProcessEnv === 'string' && process.env[sProcessEnv] !== undefined) {
+                this.explicityDebug = true;
+            }
+
 
             // Override log method
             if (this.trace) {
@@ -111,7 +122,7 @@ var Clrlog = null;
             }
 
             // In debug mode colorized messages are dumped out
-            if (global.DEBUG === true || typeof v8debug === 'object') {
+            if (this.explicityDebug === true || (this.logLevel.indexOf(sType) !== -1 && (process.env.DEBUG === true || typeof v8debug === 'object' ))) {
                 if (['boolean', 'number', 'string'].indexOf(typeof (mLogdata)) !== -1) {
                     console[logMethod](this.types[this.type] + mLogdata + this.endLog);
                 } else {
@@ -119,12 +130,12 @@ var Clrlog = null;
                     console[logMethod](mLogdata);
                     console[logMethod](this.endLog);
                 }
-            } else {
+            } else if (this.logLevel.indexOf(sType) !== -1) {
                 console[logMethod](mLogdata);
             }
         } else {
             // If it was a function call run as a class instance
-            return new Clrlog(mLogdata, sType, sLogFile, bTraceErrors);
+            return new Clrlog(mLogdata, sType, sLogFile, sProcessEnv, bTraceErrors);
         }
     };
 
@@ -134,6 +145,13 @@ var Clrlog = null;
      * @type {Boolean}
      */
     Clrlog.prototype.trace = false;
+
+    /**
+     * Determine specific debugin is enabled
+     * @property debug (default false)
+     * @type {Boolean}
+     */
+    Clrlog.prototype.debug = false;
 
     /**
      * The default message type
@@ -171,7 +189,7 @@ var Clrlog = null;
      * @property logLevel
      * @type {String}
      */
-    Clrlog.prototype.logLevel = 'error,warning,success,message';
+    Clrlog.prototype.logLevel = 'error,warning';
 
     /**
      * Throw error message with previously defined settings

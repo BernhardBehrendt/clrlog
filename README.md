@@ -6,6 +6,21 @@
 
 ![Image](https://raw.githubusercontent.com/BernhardBezdek/Clrlog/master/previews/example_output.png "Example output")
 
+#Changes in version 1.4#
+
+##Log level changes##
+- Now the default log level is error & warning. Log ``message`` and ``success`` is disabled by default. It can be enabled again by setting the logLevel (``logLevel='error,warning,success,message'``)
+
+- Any log message can be enabled temporary by 
+- - A) via process.env.DEBUG=true or
+- - B) via context based environment variable which can be assigned to constructor
+
+##Activation switch changes##
+Clrlog has now a new property inside the constructor. 
+An env variable (``process.env.CUSTOM_VARIALBE``) can be registered (e.g by starting the node app ``CUSTOM_VARIALBE=true node app.js `` )
+which enables any log level in the specific context for a better app behave logging.
+
+
 #How to use#
 Instal Clrlog via npm
 ```js
@@ -18,7 +33,7 @@ Require the Clrlog class
 ```
 To give log messages color set global.DEBUG=true or run application in node.js's debug mode
 ```js
-    global.DEBUG = true;
+    process.env.DEBUG = true; // or on startup DEBUG=true node app.js
 ```
 Or create a file named ``debug`` in applications root folder
 
@@ -26,9 +41,9 @@ Clrlog can be used as a function
 ```js
     Clrlog("Hello I'm Clrlog");
 ```
-Or as an object of the Clrlog class
+Or as an object of the Clrlog class (The logger can be registered to a process.env property to enable logging for different purposes)
 ```js
-    var myClrlog = new Clrlog("I support logging into logfiles too", 'success', __dirname + '/application.log');
+    var myClrlog = new Clrlog("I support logging into logfiles too", 'success', __dirname + '/application.log', 'MY_CUSTOM_LOG');
         myClrlog.logLevel = 'error';
         myClrlog.warning('This line is not written into logfile');
         myClrlog.error('This line is written into logfile');
