@@ -166,7 +166,7 @@ var Clrlog = null;
      * @type {Object}
      */
     Clrlog.prototype.types = {
-        message: '\x1B[34m',        // Blue colored
+        message: '\x1B[36m',        // Cyan colored
         success: '\x1B[32m',        // Green colored
         warning: '\x1B[33m',        // Yellow colored
         error: '\x1B[31m'           // Red colored
