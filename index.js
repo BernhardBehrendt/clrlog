@@ -33,7 +33,6 @@ var Clrlog = null;
         if (this !== undefined) {
             var fs = require('fs');
 
-
             if (process.env.DEBUG === undefined) {
                 process.env.DEBUG = false;
             }
@@ -122,7 +121,7 @@ var Clrlog = null;
             }
 
             // In debug mode colorized messages are dumped out
-            if (this.explicityDebug === true || (this.logLevel.indexOf(sType) !== -1 && (process.env.DEBUG === true || typeof v8debug === 'object' ))) {
+            if (this.explicityDebug === true || process.env.DEBUG === true || process.env.DEBUG === 'true') {
                 if (['boolean', 'number', 'string'].indexOf(typeof (mLogdata)) !== -1) {
                     console[logMethod](this.types[this.type] + mLogdata + this.endLog);
                 } else {
@@ -166,7 +165,7 @@ var Clrlog = null;
      * @type {Object}
      */
     Clrlog.prototype.types = {
-        message: '\x1B[36m',        // Cyan colored
+        message: '\x1B[34m',        // Cyan colored
         success: '\x1B[32m',        // Green colored
         warning: '\x1B[33m',        // Yellow colored
         error: '\x1B[31m'           // Red colored
