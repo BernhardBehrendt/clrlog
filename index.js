@@ -57,6 +57,9 @@ var Clrlog = null;
 
             if (process !== undefined && typeof process.env === 'object' && typeof sProcessEnv === 'string' && process.env[sProcessEnv] !== undefined) {
                 this.explicityDebug = true;
+                this.namespace = sProcessEnv.replace('LOG_', '') + '::'
+            } else if (sProcessEnv !== undefined) {
+                this.namespace = sProcessEnv.replace('LOG_', '') + '::';
             }
 
 
@@ -73,7 +76,7 @@ var Clrlog = null;
             // Hanlde writing into a logfile
             if (this.logFile !== false && this.logLevel.split(',').indexOf(this.type) !== -1) {
 
-                var sWriteFile = new Date().toString() + ' | ' + sType.toUpperCase() + ' ᑀ ';
+                var sWriteFile = this.namespace + new Date().toString() + ' | ' + sType.toUpperCase() + ' ᑀ ';
 
                 try {
                     if (['boolean', 'number', 'string'].indexOf(typeof (mLogdata)) !== -1) {
@@ -123,14 +126,21 @@ var Clrlog = null;
             // In debug mode colorized messages are dumped out
             if (this.explicityDebug === true || process.env.DEBUG === true || process.env.DEBUG === 'true') {
                 if (['boolean', 'number', 'string'].indexOf(typeof (mLogdata)) !== -1) {
-                    console[logMethod](this.types[this.type] + mLogdata + this.endLog);
+                    console[logMethod](this.types[this.type] + this.namespace + mLogdata + this.endLog);
                 } else {
                     console[logMethod](this.types[this.type]);
+                    console[logMethod](this.namespace);
                     console[logMethod](mLogdata);
                     console[logMethod](this.endLog);
                 }
             } else if (this.logLevel.indexOf(sType) !== -1) {
-                console[logMethod](mLogdata);
+
+                if (['boolean', 'number', 'string'].indexOf(typeof (mLogdata)) !== -1) {
+                    console[logMethod](this.namespace + mLogdata);
+                } else {
+                    console[logMethod](this.namespace);
+                    console[logMethod](mLogdata);
+                }
             }
         } else {
             // If it was a function call run as a class instance
