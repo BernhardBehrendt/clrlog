@@ -60,6 +60,7 @@ var Clrlog = null;
                 this.namespace = sProcessEnv.replace('LOG_', '') + '::'
             } else if (sProcessEnv !== undefined) {
                 this.namespace = sProcessEnv.replace('LOG_', '') + '::';
+                this.explicityDebug = false;
             }
 
 
@@ -122,6 +123,15 @@ var Clrlog = null;
                     Clrlog(e, 'error');
                 }
             }
+
+            if (process !== undefined && typeof process.env === 'object' && typeof sProcessEnv === 'string' && process.env[sProcessEnv] !== undefined) {
+                this.explicityDebug = true;
+                this.namespace = sProcessEnv.replace('LOG_', '') + '::'
+            } else if (sProcessEnv !== undefined) {
+                this.namespace = sProcessEnv.replace('LOG_', '') + '::';
+                this.explicityDebug = false;
+            }
+
 
             // In debug mode colorized messages are dumped out
             if (this.explicityDebug === true || process.env.DEBUG === true || process.env.DEBUG === 'true') {
