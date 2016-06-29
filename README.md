@@ -6,6 +6,11 @@
 
 ![Image](https://raw.githubusercontent.com/BernhardBezdek/Clrlog/master/previews/example_output.png "Example output")
 
+#Changes in version 1.6#
+- LOG_CUSTOM_VARIABLES allow tracing by also setting TRACE=true when debugging
+- Logging messages contain an ISO date string as default
+- Logging message type is always exposed [message], [success], [warning], [error]
+
 #Changes in version 1.4#
 
 ##Log level changes##

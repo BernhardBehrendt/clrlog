@@ -37,6 +37,13 @@ var Clrlog = null;
                 process.env.DEBUG = false;
             }
 
+            if (typeof sProcessEnv === 'string') {
+                this.processEnv = sProcessEnv;
+            } else {
+                sProcessEnv = 'Clrlog';
+                this.processEnv = 'Clrlog';
+            }
+
             // The end string for colored messages
             var logMethod = 'log';
             var logArchive = {};
@@ -65,7 +72,7 @@ var Clrlog = null;
 
 
             // Override log method
-            if (this.trace) {
+            if (this.trace || ( process.env[sProcessEnv] !== undefined && process.env.TRACE !== undefined)) {
                 logMethod = 'trace';
             }
 
@@ -77,7 +84,7 @@ var Clrlog = null;
             // Hanlde writing into a logfile
             if (this.logFile !== false && this.logLevel.split(',').indexOf(this.type) !== -1) {
 
-                var sWriteFile = this.namespace + new Date().toString() + ' | ' + sType.toUpperCase() + ' ᑀ ';
+                var sWriteFile = new Date().toString() + ' - ' + this.namespace + ' | ' + sType.toUpperCase() + ' ᑀ ';
 
                 try {
                     if (['boolean', 'number', 'string'].indexOf(typeof (mLogdata)) !== -1) {
@@ -132,23 +139,24 @@ var Clrlog = null;
                 this.explicityDebug = false;
             }
 
+            // logMethod = 'warn';
 
             // In debug mode colorized messages are dumped out
             if (this.explicityDebug === true || process.env.DEBUG === true || process.env.DEBUG === 'true') {
                 if (['boolean', 'number', 'string'].indexOf(typeof (mLogdata)) !== -1) {
-                    console[logMethod](this.types[this.type] + this.namespace + mLogdata + this.endLog);
+                    console[logMethod](this.types[this.type] + new Date().toISOString() + ' - ' + this.namespace + ' [' + this.type + '] ' + mLogdata + this.endLog);
                 } else {
                     console[logMethod](this.types[this.type]);
-                    console[logMethod](this.namespace);
+                    console[logMethod](new Date().toISOString() + ' - ' + this.namespace + ' [' + this.type + '] ' );
                     console[logMethod](mLogdata);
                     console[logMethod](this.endLog);
                 }
             } else if (this.logLevel.indexOf(sType) !== -1) {
 
                 if (['boolean', 'number', 'string'].indexOf(typeof (mLogdata)) !== -1) {
-                    console[logMethod](this.namespace + mLogdata);
+                    console[logMethod](new Date().toISOString() + ' - ' + this.namespace + ' [' + this.type + '] ' + mLogdata);
                 } else {
-                    console[logMethod](this.namespace);
+                    console[logMethod](new Date().toISOString() + ' - ' + this.namespace + ' [' + this.type + '] ');
                     console[logMethod](mLogdata);
                 }
             }
@@ -217,7 +225,7 @@ var Clrlog = null;
      * @param message
      */
     Clrlog.prototype.error = function (message) {
-        this.constructor(message, 'error', this.logFile);
+        this.constructor(message, 'error', this.logFile, this.processEnv, this.trace);
     };
 
     /**
@@ -227,7 +235,7 @@ var Clrlog = null;
      * @param message
      */
     Clrlog.prototype.warning = function (message) {
-        this.constructor(message, 'warning', this.logFile);
+        this.constructor(message, 'warning', this.logFile, this.processEnv, this.trace);
     };
 
     /**
@@ -237,7 +245,7 @@ var Clrlog = null;
      * @param message
      */
     Clrlog.prototype.success = function (message) {
-        this.constructor(message, 'success', this.logFile);
+        this.constructor(message, 'success', this.logFile, this.processEnv, this.trace);
     };
 
     /**
@@ -247,7 +255,7 @@ var Clrlog = null;
      * @param message
      */
     Clrlog.prototype.message = function (message) {
-        this.constructor(message, 'message', this.logFile);
+        this.constructor(message, 'message', this.logFile, this.processEnv, this.trace);
     };
 })();
 
